@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">树枝音乐</string>
+    <string name="app_name_string">默默用心，静听</string>
+    <string name="copy_right">Copyright © 2018 All rights Reserved.</string>
+
+    <string name="loading_text_string">加载中</string>
+    <string name="list_is_null">播放列表为空</string>
+
+    <!-- 时间处理 -->
+    <string name="str_yearago">年前</string>
+    <string name="str_monthago">月前</string>
+    <string name="str_daysago">天前</string>
+    <string name="str_hoursago">小时前</string>
+    <string name="str_minsago">分钟前</string>
+    <string name="str_secondago">秒前</string>
+    <string name="zeroTime">00:00</string>
+</resources>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mBackGround"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/backgroundBg"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginBottom="100dp"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
+
+        <com.github.mmin18.widget.RealtimeBlurView
+            android:id="@+id/realtimeBlur"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:visibility="gone"
+            app:realtimeBlurRadius="20dp"
+            app:realtimeOverlayColor="#8fff" />
+
+        <LinearLayout
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginBottom="@dimen/distance2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/zeroTime"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/progressText"
+                    android:textColor="@color/normalText"
+                    android:textSize="@dimen/smallFontSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="@string/zeroTime"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/progressAllText"
+                    android:textColor="@color/normalText"
+                    android:textSize="@dimen/smallFontSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:background="@color/lightText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1">
+                <View
+                    android:id="@+id/progress"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/x1"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="55dp">
+
+                <ImageView
+                    android:id="@+id/playerMode"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="@dimen/distance"
+                    android:layout_weight="1"
+                    android:src="@mipmap/ic_player_mode_list" />
+
+                <ImageView
+                    android:id="@+id/playerLast"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/distance"
+                    android:layout_weight="1"
+                    android:src="@mipmap/ic_player_home_last" />
+
+                <ImageView
+                    android:id="@+id/playerPlay"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="@dimen/distance"
+                    android:src="@mipmap/ic_player_home_play" />
+
+                <ImageView
+                    android:id="@+id/playerNext"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/distance"
+                    android:layout_weight="1"
+                    android:src="@mipmap/ic_player_home_next" />
+
+                <ImageView
+                    android:id="@+id/playerMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/ic_player_home_menu" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/barHeight"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+            <LinearLayout
+                android:padding="5dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/backLin"
+                    android:padding="10dp"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_marginEnd="@dimen/distance"
+                    android:src="@mipmap/ic_back" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/nowSongName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/darkText"
+                        android:textSize="@dimen/normalFontSize" />
+
+                    <TextView
+                        android:id="@+id/nowSongNameEr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/normalText"
+                        android:textSize="@dimen/smallFontSize" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

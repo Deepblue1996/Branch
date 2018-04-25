@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <zou.dahua.branch.weight.TitleBar
+            android:id="@+id/titleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </zou.dahua.branch.weight.TitleBar>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/musicBar"
+            android:layout_below="@+id/titleBar">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:overScrollFooter="@android:color/transparent"
+                android:overScrollHeader="@android:color/transparent"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/haveNull"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@mipmap/ic_img_load" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="播放列表为空"
+                    android:textColor="@color/lightText"
+                    android:textSize="@dimen/normalFontSize" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <zou.dahua.branch.weight.MusicBar
+            android:id="@+id/musicBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        </zou.dahua.branch.weight.MusicBar>
+
+        <View
+            android:id="@+id/windowBefore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.0"
+            android:background="#99000000"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+</LinearLayout>

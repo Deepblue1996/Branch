@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/musicBar"
+            android:orientation="vertical">
+
+            <zou.dahua.branch.weight.TitleBar
+                android:id="@+id/titleBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </zou.dahua.branch.weight.TitleBar>
+
+            <LinearLayout
+                android:id="@+id/localTouchLin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/mBackGround"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/distance">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/ic_local_music" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/distance"
+                    android:text="本地音乐"
+                    android:textColor="@color/darkText"
+                    android:textSize="@dimen/normalFontSize" />
+                <TextView
+                    android:id="@+id/localMusicCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/distance"
+                    android:textColor="@color/normalText"
+                    android:textSize="@dimen/smallFontSize" />
+
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/backGround"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/mBackGround"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/distance">
+
+                <ImageView
+                    android:padding="2dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/ic_history_music" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/distance"
+                    android:text="最近播放"
+                    android:textColor="@color/darkText"
+                    android:textSize="@dimen/normalFontSize" />
+            </LinearLayout>
+
+            <View
+                android:background="@color/backGround"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/mBackGround"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/distance">
+
+                <ImageView
+                    android:padding="2dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/ic_love_music" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/distance"
+                    android:text="我的喜欢"
+                    android:textColor="@color/darkText"
+                    android:textSize="@dimen/normalFontSize" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <zou.dahua.branch.weight.MusicBar
+            android:id="@+id/musicBar"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </zou.dahua.branch.weight.MusicBar>
+
+    </RelativeLayout>
+</LinearLayout>
