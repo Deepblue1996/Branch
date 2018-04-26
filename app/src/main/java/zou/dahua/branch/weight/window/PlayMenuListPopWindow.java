@@ -18,11 +18,15 @@ import com.prohua.universal.UniversalViewHolder;
 import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import me.yokeyword.fragmentation.SupportFragment;
 import zou.dahua.branch.R;
+import zou.dahua.branch.bean.MediaEntity;
 import zou.dahua.branch.core.CoreApplication;
 import zou.dahua.branch.event.RefreshServicePlayEvent;
+import zou.dahua.branch.event.ServiceNextMusicEvent;
 import zou.dahua.branch.event.ServicePlayLocationMusicEvent;
 import zou.dahua.branch.event.ServicePlayMusicEvent;
 import zou.dahua.branch.event.ShowAnimViewEvent;
@@ -35,7 +39,13 @@ import zou.dahua.branch.view.HomeMainFragment;
  */
 public class PlayMenuListPopWindow extends PopupWindow {
 
+    private List<MediaEntity> mediaEntityList;
+
     private UniversalAdapter universalAdapter;
+
+    private RecyclerView recyclerView;
+
+    private LinearLayout haveNull;
 
     public void fitPopupWindowOverStatusBar(boolean needFullScreen) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -89,6 +99,8 @@ public class PlayMenuListPopWindow extends PopupWindow {
             }
         });
 
+        haveNull = view.findViewById(R.id.haveNull);
+
         setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -96,34 +108,62 @@ public class PlayMenuListPopWindow extends PopupWindow {
             }
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler);
+        recyclerView = view.findViewById(R.id.recycler);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-        universalAdapter  = new UniversalAdapter(mContext, CoreApplication.musicBean().getMediaEntityList(),
+        mediaEntityList = CoreApplication.musicBean().getMediaEntityList();
+
+        universalAdapter = new UniversalAdapter(mContext, mediaEntityList,
                 R.layout.local_music_list_item_window_layout, 0, 0);
 
         universalAdapter.setOnBindItemView(new UniversalAdapter.OnBindItemView() {
             @Override
-            public void onBindItemViewHolder(UniversalViewHolder universalViewHolder, int i) {
-                universalViewHolder.setText(R.id.songName, HomeMainFragment.mediaEntityList.get(i).title);
-                universalViewHolder.setText(R.id.songNameEr, HomeMainFragment.mediaEntityList.get(i).artist);
-                if(CoreApplication.musicBean().getLocation() == i) {
-                    if(CoreApplication.musicBean().isPlaying()) {
+            public void onBindItemViewHolder(UniversalViewHolder universalViewHolder, final int i) {
+                universalViewHolder.setText(R.id.songName, mediaEntityList.get(i).title);
+                universalViewHolder.setText(R.id.songNameEr, mediaEntityList.get(i).artist);
+                if (CoreApplication.musicBean().getLocation() == i) {
+                    universalViewHolder.vbi(R.id.moreRight).setVisibility(View.VISIBLE);
+                    if (CoreApplication.musicBean().isPlaying()) {
                         universalViewHolder.setImgRes(R.id.moreRight, R.mipmap.ic_player_home_pause);
                     } else {
                         universalViewHolder.setImgRes(R.id.moreRight, R.mipmap.ic_player_home_play);
                     }
                 } else {
-                    universalViewHolder.setImgRes(R.id.moreRight, R.mipmap.ic_player_home_play);
+                    universalViewHolder.vbi(R.id.moreRight).setVisibility(View.GONE);
                 }
+
+                universalViewHolder.vbi(R.id.delRight).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (i != CoreApplication.musicBean().getLocation()) {
+                            if (i > CoreApplication.musicBean().getLocation()) {
+                                mediaEntityList.remove(i);
+                                refresh();
+                            } else {
+                                mediaEntityList.remove(i);
+                                CoreApplication.musicBean().setLocation(CoreApplication.musicBean().getLocation() - 1);
+                                refresh();
+                            }
+                        } else {
+                            mediaEntityList.remove(i);
+                            CoreApplication.musicBean().setLocation(CoreApplication.musicBean().getLocation() - 1);
+                            EventBus.getDefault().post(new ServiceNextMusicEvent());
+                            EventBus.getDefault().post(new RefreshServicePlayEvent());
+                            refresh();
+                        }
+                        if(mediaEntityList.size() == 0) {
+                            haveNull.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
             }
         });
 
         universalAdapter.setOnBindItemClick(new UniversalAdapter.OnBindItemClick() {
             @Override
             public void onBindItemClick(View view, int i) {
-                if(CoreApplication.musicBean().getLocation() != i) {
+                if (CoreApplication.musicBean().getLocation() != i) {
                     CoreApplication.musicBean().setLocation(i);
                     EventBus.getDefault().post(new ServicePlayLocationMusicEvent());
                     EventBus.getDefault().post(new RefreshServicePlayEvent());
@@ -137,8 +177,7 @@ public class PlayMenuListPopWindow extends PopupWindow {
 
         recyclerView.setAdapter(universalAdapter);
 
-        LinearLayout haveNull = view.findViewById(R.id.haveNull);
-        if(CoreApplication.musicBean().getMediaEntityList().size() == 0) {
+        if (CoreApplication.musicBean().getMediaEntityList().size() == 0) {
             haveNull.setVisibility(View.VISIBLE);
         }
     }

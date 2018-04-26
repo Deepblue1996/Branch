@@ -10,21 +10,36 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_toStartOf="@+id/delRight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/moreRight"
             android:orientation="vertical"
             android:padding="@dimen/distance">
 
-            <TextView
-                android:id="@+id/songName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/darkText"
-                android:textSize="@dimen/normalFontSize" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/moreRight"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="@dimen/distance2"
+                    android:src="@mipmap/ic_player_home_play" />
+
+                <TextView
+                    android:id="@+id/songName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/darkText"
+                    android:textSize="@dimen/normalFontSize" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/songNameEr"
@@ -38,13 +53,15 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/moreRight"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:id="@+id/delRight"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="15dp"
-            android:src="@mipmap/ic_player_home_play" />
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:src="@mipmap/ic_del" />
+
     </RelativeLayout>
 
     <View

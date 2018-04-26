@@ -13,8 +13,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import zou.dahua.branch.R;
+import zou.dahua.branch.bean.MediaEntity;
 import zou.dahua.branch.core.CoreApplication;
 import zou.dahua.branch.event.RefreshServicePlayEvent;
 import zou.dahua.branch.event.ServiceNextMusicEvent;

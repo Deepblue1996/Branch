@@ -51,7 +51,8 @@ public class MusicStateBean implements Serializable {
     }
 
     public void setMediaEntityList(List<MediaEntity> mediaEntityList) {
-        this.mediaEntityList = mediaEntityList;
+        this.mediaEntityList.clear();
+        this.mediaEntityList.addAll(mediaEntityList);
         this.location = 0;
     }
 
