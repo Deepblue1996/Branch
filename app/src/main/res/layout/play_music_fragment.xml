@@ -65,6 +65,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/progressBg"
                 android:background="@color/lightText"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x1">

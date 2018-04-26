@@ -30,6 +30,7 @@ import zou.dahua.branch.event.ServiceNextMusicEvent;
 import zou.dahua.branch.event.ServicePlayMusicEvent;
 import zou.dahua.branch.util.DisplayUtil;
 import zou.dahua.branch.util.ImageUtil;
+import zou.dahua.branch.util.PreciseCompute;
 import zou.dahua.branch.util.TimerToUtil;
 import zou.dahua.branch.weight.BaseSupportFragment;
 import zou.dahua.branch.weight.MineLinearInterpolator;
@@ -63,6 +64,8 @@ public class PlayMusicFragment extends BaseSupportFragment {
     ImageView playerNext;
     @BindView(R.id.backLin)
     ImageView backLin;
+    @BindView(R.id.progressBg)
+    RelativeLayout progressBg;
     @BindView(R.id.progress)
     View progress;
     @BindView(R.id.progressText)
@@ -159,9 +162,10 @@ public class PlayMusicFragment extends BaseSupportFragment {
             }
         });
 
-        /*if(CoreApplication.musicBean().getSong().) {
-
-        }*/
+        if (CoreApplication.musicBean().getSong() != null) {
+            progressText.setText(TimerToUtil.songDateToString(MusicManager.get().getProgress()));
+            progressAllText.setText(TimerToUtil.songDateToString(CoreApplication.musicBean().getSong().duration));
+        }
     }
 
     private void playSong() {
@@ -204,14 +208,36 @@ public class PlayMusicFragment extends BaseSupportFragment {
                 _mActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        RelativeLayout.LayoutParams layoutParams =
-                                (RelativeLayout.LayoutParams) progress.getLayoutParams();
-                        layoutParams.width = (int) (MusicManager.get().getProgress() /
-                                (CoreApplication.musicBean().getSong().duration / 100));
-                        progress.setLayoutParams(layoutParams);
 
-                        progressText.setText(TimerToUtil.songDateToString(MusicManager.get().getProgress()));
-                        progressAllText.setText(TimerToUtil.songDateToString(CoreApplication.musicBean().getSong().duration));
+                        if (CoreApplication.musicBean().isPlaying()) {
+                            // ----精准到后六位
+
+                            progressBg.measure(0, 0);
+
+                            RelativeLayout.LayoutParams layoutParams =
+                                    (RelativeLayout.LayoutParams) progress.getLayoutParams();
+                            // 总长度百分比分配
+                            double one = PreciseCompute.div(progressBg.getWidth(), 100, 6);
+
+                            // 总时间百分比分配
+                            double two = PreciseCompute.div(MusicManager.get().getDuration(), 100, 6);
+
+                            // 进度占几个百分比
+                            double three = PreciseCompute.div(MusicManager.get().getProgress(), two, 6);
+
+                            // 百分比乘以分配，得出长度
+                            double five = PreciseCompute.mul(three, one);
+
+                            // 四舍五入到整数
+                            double six = PreciseCompute.round(five, 0);
+
+                            layoutParams.width = (int) six;
+
+                            progress.setLayoutParams(layoutParams);
+
+                            progressText.setText(TimerToUtil.songDateToString(MusicManager.get().getProgress()));
+                            progressAllText.setText(TimerToUtil.songDateToString(CoreApplication.musicBean().getSong().duration));
+                        }
                     }
                 });
             }
@@ -270,4 +296,5 @@ public class PlayMusicFragment extends BaseSupportFragment {
             playMenuListPopWindow.refresh();
         }
     }
+
 }

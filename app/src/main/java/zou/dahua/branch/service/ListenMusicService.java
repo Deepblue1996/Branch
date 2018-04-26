@@ -19,6 +19,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.lzx.musiclibrary.aidl.listener.OnPlayerEventListener;
@@ -48,6 +49,8 @@ import zou.dahua.branch.view.CoreActivity;
  */
 
 public class ListenMusicService extends Service {
+
+    private static final String TAG = "ListenMusicService";
 
     private static final String ACTION_SERVICE = "MusicService";
     private static final String ACTION_SERVICE_PLAY = "MusicServicePlay";
@@ -108,32 +111,32 @@ public class ListenMusicService extends Service {
         MusicManager.get().addPlayerEventListener(new OnPlayerEventListener() {
             @Override
             public void onMusicSwitch(SongInfo songInfo) {
-
+                Log.i(TAG, "切换");
             }
 
             @Override
             public void onPlayerStart() {
-
             }
 
             @Override
             public void onPlayerPause() {
-
             }
 
             @Override
             public void onPlayCompletion() {
+                Log.i(TAG, "完成");
                 EventBus.getDefault().post(new ServiceNextMusicEvent());
+                EventBus.getDefault().post(new RefreshServicePlayEvent());
             }
 
             @Override
             public void onError(String s) {
                 EventBus.getDefault().post(new ServiceNextMusicEvent());
+                EventBus.getDefault().post(new RefreshServicePlayEvent());
             }
 
             @Override
             public void onAsyncLoading(boolean b) {
-
             }
         });
     }
@@ -318,7 +321,9 @@ public class ListenMusicService extends Service {
                     musicStateBean.setPlaying(true);
                 } else {
                     musicStateBean.setPlaying(false);
-                    MusicManager.get().stopMusic();
+                    if(MusicManager.get().getStatus() == State.STATE_PLAYING) {
+                        MusicManager.get().stopMusic();
+                    }
                 }
                 break;
         }
@@ -332,6 +337,7 @@ public class ListenMusicService extends Service {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ServiceLastMusicEvent event) {
         if (musicStateBean.getMediaEntityList().size() != 0 && musicStateBean.getLocation() - 1 > 0) {
+            Log.i(TAG, "上一首");
             musicStateBean.setLocation(musicStateBean.getLocation() - 1);
             SongInfo songInfo = new SongInfo();
             songInfo.setSongId("id" + musicStateBean.getSong().id);
@@ -339,8 +345,11 @@ public class ListenMusicService extends Service {
             MusicManager.get().playMusicByInfo(songInfo);
             musicStateBean.setPlaying(true);
         } else {
+            Log.i(TAG, "停止");
             musicStateBean.setPlaying(false);
-            MusicManager.get().stopMusic();
+            if(MusicManager.get().getStatus() == State.STATE_PLAYING) {
+                MusicManager.get().stopMusic();
+            }
         }
     }
 
@@ -352,6 +361,7 @@ public class ListenMusicService extends Service {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ServiceNextMusicEvent event) {
         if (musicStateBean.getMediaEntityList().size() > musicStateBean.getLocation() + 1) {
+            Log.i(TAG, "下一首");
             musicStateBean.setLocation(musicStateBean.getLocation() + 1);
             SongInfo songInfo = new SongInfo();
             songInfo.setSongId("id" + musicStateBean.getSong().id);
@@ -359,8 +369,11 @@ public class ListenMusicService extends Service {
             MusicManager.get().playMusicByInfo(songInfo);
             musicStateBean.setPlaying(true);
         } else {
+            Log.i(TAG, "停止");
             musicStateBean.setPlaying(false);
-            MusicManager.get().stopMusic();
+            if(MusicManager.get().getStatus() == State.STATE_PLAYING) {
+                MusicManager.get().stopMusic();
+            }
         }
     }
 
