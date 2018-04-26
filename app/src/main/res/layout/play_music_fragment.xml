@@ -18,8 +18,8 @@
 
             <ImageView
                 android:id="@+id/backgroundBg"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
                 android:layout_marginBottom="100dp"
                 android:scaleType="fitCenter" />
         </LinearLayout>
@@ -28,7 +28,7 @@
             android:id="@+id/realtimeBlur"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0"
+            android:alpha="1.0"
             android:visibility="gone"
             app:realtimeBlurRadius="20dp"
             app:realtimeOverlayColor="#8fff" />

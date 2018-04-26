@@ -102,7 +102,7 @@ public class PlayMusicFragment extends BaseSupportFragment {
 
     @Override
     protected void initView() {
-        ImageUtil.show(getContext(), R.mipmap.ic_launcher_round, backgroundBg);
+        ImageUtil.show(getContext(), R.mipmap.ic_launcher_round_hu, backgroundBg);
 
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) barHeight.getLayoutParams();
         layoutParams.height = DisplayUtil.getStatusBarHeight(getContext());
@@ -263,7 +263,9 @@ public class PlayMusicFragment extends BaseSupportFragment {
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        realtimeBlur.setVisibility(View.VISIBLE);
+
+        //ImageUtil.show(getContext(), R.mipmap.ic_launcher_round, backgroundBg);
+        //realtimeBlur.setVisibility(View.VISIBLE);
 
         if (CoreApplication.musicBean().isPlaying()) {
             playSong();
@@ -271,7 +273,6 @@ public class PlayMusicFragment extends BaseSupportFragment {
             pauseSong();
         }
 
-        ViewAnimator.animate(realtimeBlur).alpha(0.0f, 1.0f).duration(200).start();
     }
 
     @Override
