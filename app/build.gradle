@@ -69,4 +69,5 @@ dependencies {
     compile 'com.github.lizixian18:MusicLibrary:v1.3.2'
 
     compile 'com.github.mmin18:realtimeblurview:1.1.0'
+    compile 'com.github.devlight.shadowlayout:library:1.0.2'
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -23,12 +24,12 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:overScrollFooter="@android:color/transparent"
                 android:overScrollHeader="@android:color/transparent"
                 android:overScrollMode="never"
-                android:scrollbars="none"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:scrollbars="none">
 
             </android.support.v7.widget.RecyclerView>
 
@@ -53,6 +54,39 @@
                     android:textSize="@dimen/normalFontSize" />
 
             </LinearLayout>
+
+            <com.gigamole.library.ShadowLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="30dp"
+                app:sl_shadow_angle="90"
+                app:sl_shadow_color="#ccc"
+                android:id="@+id/locationTouch"
+                app:sl_shadow_distance="1dp"
+                app:sl_shadow_radius="3dp"
+                app:sl_shadowed="true">
+
+                <com.prohua.roundlayout.RoundAngleFrameLayout
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    app:radius="17dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/mBackGround">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp"
+                            android:src="@mipmap/ic_icon_location" />
+                    </LinearLayout>
+                </com.prohua.roundlayout.RoundAngleFrameLayout>
+            </com.gigamole.library.ShadowLayout>
         </RelativeLayout>
 
         <zou.dahua.branch.weight.MusicBar

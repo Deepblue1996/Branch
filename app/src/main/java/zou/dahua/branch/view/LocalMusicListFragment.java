@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.gigamole.library.ShadowLayout;
 import com.prohua.universal.UniversalAdapter;
 import com.prohua.universal.UniversalViewHolder;
 
@@ -48,6 +49,8 @@ public class LocalMusicListFragment extends BaseSupportFragment {
     View windowBefore;
     @BindView(R.id.haveNull)
     LinearLayout haveNull;
+    @BindView(R.id.locationTouch)
+    ShadowLayout locationTouch;
 
     private UniversalAdapter universalAdapter;
 
@@ -141,7 +144,7 @@ public class LocalMusicListFragment extends BaseSupportFragment {
         });
         recycler.setAdapter(universalAdapter);
 
-        if(HomeMainFragment.mediaEntityList.size() == 0) {
+        if (HomeMainFragment.mediaEntityList.size() == 0) {
             haveNull.setVisibility(View.VISIBLE);
         }
 
@@ -190,6 +193,22 @@ public class LocalMusicListFragment extends BaseSupportFragment {
                 start(PlayMusicFragment.newInstance());
             }
         });
+
+        locationTouch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recycler.smoothScrollToPosition(getSongPosition());
+            }
+        });
+    }
+
+    private int getSongPosition() {
+        for (int i = 0; i < HomeMainFragment.mediaEntityList.size(); i++) {
+            if(HomeMainFragment.mediaEntityList.get(i).id == CoreApplication.musicBean().getSong().id) {
+                return i+1;
+            }
+        }
+        return 0;
     }
 
     @Override

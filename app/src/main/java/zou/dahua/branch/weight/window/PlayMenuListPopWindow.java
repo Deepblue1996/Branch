@@ -180,6 +180,8 @@ public class PlayMenuListPopWindow extends PopupWindow {
         if (CoreApplication.musicBean().getMediaEntityList().size() == 0) {
             haveNull.setVisibility(View.VISIBLE);
         }
+
+        recyclerView.scrollToPosition(CoreApplication.musicBean().getLocation());
     }
 
     public void refresh() {
