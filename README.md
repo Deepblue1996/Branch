@@ -4,6 +4,8 @@
 
 用心, 默默听
 
+![Image text](https://raw.githubusercontent.com/Deepblue1996/Branch/master/img/ezgif-1-fcaf40a90c.gif)
+
 ![Image text](https://raw.githubusercontent.com/Deepblue1996/Branch/master/img/1.png)
 ![Image text](https://raw.githubusercontent.com/Deepblue1996/Branch/master/img/2.png)
 ![Image text](https://raw.githubusercontent.com/Deepblue1996/Branch/master/img/3.png)
